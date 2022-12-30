@@ -11,8 +11,6 @@ import java.util.List;
 @ToString
 public class DailyForecast {
     private String dateTime;
-    private String address;
-    private String timezone;
     private Double tempMax;
     private Double tempMin;
     private Double temp;

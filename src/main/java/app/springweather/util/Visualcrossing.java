@@ -2,6 +2,7 @@ package app.springweather.util;
 
 import app.springweather.entity.City;
 import app.springweather.entity.forecast.DailyForecast;
+import app.springweather.entity.forecast.Forecast;
 import app.springweather.entity.forecast.HourlyForecast;
 
 import org.apache.http.HttpEntity;
@@ -27,7 +28,7 @@ import java.nio.charset.Charset;
 
 @Service
 public class Visualcrossing {
-    private String rawResult(  City city) throws IOException, URISyntaxException {
+    private String rawResult( City city) throws IOException, URISyntaxException {
         final  String startDate = new DateUtil().dateFormatter(new Date());
         final String endDate = new DateUtil().dateFormatter(new DateUtil().fiveDaysFromNow(new Date()));
         final String apiEndPoint="https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
@@ -101,7 +102,7 @@ public class Visualcrossing {
         return output;
     }
 
-    public List<DailyForecast> days(City city) throws IOException, URISyntaxException {
+    public Forecast days(City city) throws IOException, URISyntaxException {
         String rawResult = rawResult(city);
         List<DailyForecast> output = new ArrayList<>();
 
@@ -115,7 +116,6 @@ public class Visualcrossing {
 
                 String dateTime = dayValue.getString("datetime");
                 String address = city.cityAdress().replace(",", ", ");
-                String timezone = timelineResponse.getString("timezone");
                 Double maxTemp = dayValue.getDouble("tempmax");
                 Double minTemp = dayValue.getDouble("tempmin");
                 Double temp = dayValue.getDouble("temp");
@@ -133,10 +133,13 @@ public class Visualcrossing {
                 String icon = "static/img/" + dayValue.getString("icon")+".png";
                 List<HourlyForecast> hourly = hours(dayValue.getJSONArray("hours"));
 
-                DailyForecast dailyForecast = new DailyForecast(dateTime, address, timezone, maxTemp, minTemp, temp, feelsLike, humidity, snow, snowDepth, windSpeed, pressure, visibility, sunrise,sunset,conditions,description, icon, hourly );
+                DailyForecast dailyForecast = new DailyForecast(dateTime,  maxTemp, minTemp, temp, feelsLike, humidity, snow, snowDepth, windSpeed, pressure, visibility, sunrise,sunset,conditions,description, icon, hourly );
                 output.add(dailyForecast);
             }
-            return output;
+
+            String timezone = timelineResponse.getString("timezone");
+            Forecast forecast = new Forecast(city,timezone, output);
+            return forecast;
         }
     }
 }

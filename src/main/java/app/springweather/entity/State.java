@@ -1,5 +1,6 @@
 package app.springweather.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,9 +26,11 @@ public class State {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "country_id", nullable = false)
+    @JsonIgnoreProperties("states")
     private Country country;
 
     @OneToMany(mappedBy = "state", orphanRemoval = true)
+    @JsonIgnoreProperties("state")
     private Set<City> cities = new LinkedHashSet<>();
 
 }

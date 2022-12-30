@@ -33,7 +33,8 @@
               </div>
             </div>
             <div class="card-body p-0">
-              <div class="d-flex weakly-weather" th:each="day: ${forecast}">
+              <th:block th:each="day: ${forecast}">
+              <div class="d-flex weakly-weather">
                 <div class="weakly-weather-item">
                   <p class="mb-0">
                     Sun
@@ -45,6 +46,7 @@
                 </div>
 
               </div>
+              </th:block>
             </div>
           </div>
           <!--weather card ends-->

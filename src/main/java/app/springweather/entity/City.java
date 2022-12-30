@@ -1,5 +1,6 @@
 package app.springweather.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class City {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "state_id", nullable = false)
+    @JsonIgnoreProperties("cities")
     private State state;
 
     public String cityAdress(){

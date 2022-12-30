@@ -1,6 +1,7 @@
 package app.springweather.controller;
 
 import app.springweather.entity.forecast.DailyForecast;
+import app.springweather.entity.forecast.Forecast;
 import app.springweather.service.CityService;
 import app.springweather.util.Visualcrossing;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class ForecastController {
     private final Visualcrossing visualcrossing;
 
     @GetMapping("/forecast")
-    public ResponseEntity<List<DailyForecast>> forecast() throws IOException, URISyntaxException{
+    public ResponseEntity<Forecast> forecast() throws IOException, URISyntaxException{
 
         /*return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);*/
         return ResponseEntity.ok().body(visualcrossing.days(cityService.allCities().get(0)));

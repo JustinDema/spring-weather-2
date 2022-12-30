@@ -1,5 +1,6 @@
 package app.springweather.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.LinkedHashSet;
@@ -25,6 +26,7 @@ public class Country {
     private String code;
 
     @OneToMany(mappedBy = "country", orphanRemoval = true)
+    @JsonIgnoreProperties("country")
     private Set<State> states = new LinkedHashSet<>();
 
 }
