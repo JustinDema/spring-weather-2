@@ -33,7 +33,6 @@ public class ForecastController {
     @GetMapping("/")
     public String showPage(Model model) {
         model.addAttribute("countryList", countryService.getAll());
-        System.out.println(countryService.getAll().size());
         return "index";
     }
 
