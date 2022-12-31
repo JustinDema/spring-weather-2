@@ -1,81 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org/">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link  rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script th:src="@{/js/dynaRDrop.js}"></script>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
 </head>
 <body>
 <div class="container">
     <div class="card">
-        <div class="row">
-            <div class="col-9 left">
-                <div class="row top">
-                    <div class="col">Moscow</div>
-                    <div class="col">18.01.2020</div>
-                    <div class="col">Rain map</div>
-                </div>
+        <div class="card-header bg-primary text-white text-center">
+            <h3>SELECT CITY</h3>
+        </div>
+        <div class="card-body">
+            <form>
+
                 <div class="row">
-                    <div class="col-7 temp">-4&deg;</div>
-                    <div class="col-5 time"><p>11:00</p><h2><b>Saturday</b></h2><p>Cloudy</p></div>
+                    <div class="col-2">Country</div>
+                    <div class="col-8">
+                        <select id="countries" class="form-control">
+                            <option value='0'>SELECT</option>
+                            <th:block th:each="country:${countryList}">
+                                <option th:value="${country.id}" th:text="${country.name}"></option>
+                            </th:block>
+                        </select>
+                    </div>
                 </div>
-                <div class="row bottom">
-                    <div class="col"><hr></div>
-                    <div class="col border">
-                        <div class="row">Sab</div>
-                        <div class="row"><b>-4&deg;</b></div>
+                <br/>
+                <div class="row">
+                    <div class="col-2">State</div>
+                    <div class="col-8">
+                        <select id="states" class="form-control">
+                            <option value='-1'>SELECT</option>
+                        </select>
                     </div>
-                    <div class="col">
-                        <div class="row">Sun</div>
-                        <div class="row"><b>-4&deg;</b></div>
-                    </div>
-                    <div class="col">
-                        <div class="row">Mon</div>
-                        <div class="row"><b>-5&deg;</b></div>
-                    </div>
-                    <div class="col">
-                        <div class="row">Tue</div>
-                        <div class="row"><b>-10&deg;</b></div>
-                    </div>
-                    <div class="col">
-                        <div class="row">Wed</div>
-                        <div class="row"><b>-4&deg;</b></div>
-                    </div>
-                    <div class="col">
-                        <div class="row">Thu</div>
-                        <div class="row"><b>-2&deg;</b></div>
-                    </div>
-                    <div class="col">
-                        <div class="row">Fri</div>
-                        <div class="row"><b>0&deg;</b></div>
-                    </div>
-                    <div class="col"><hr></div>
                 </div>
-            </div>
-            <div class="col-3 right">
-                <div class="row top">For a month</div>
-                <div class="timely">
-                    <div class="row">11:00 &nbsp; <b>-4&deg;</b></div>
-                    <div class="row">12:00 &nbsp; <b>-4&deg;</b></div>
-                    <div class="row">13:00 &nbsp; <b>-5&deg;</b></div>
-                    <div class="row">14:00 &nbsp; <b>-7&deg;</b></div>
-                    <div class="row">15:00 &nbsp; <b>-4&deg;</b></div>
-                    <div class="row">16:00 &nbsp; <b>-4&deg;</b></div>
-                    <div class="row">11:00 &nbsp; <b>-4&deg;</b></div>
-                    <div class="row">12:00 &nbsp; <b>-4&deg;</b></div>
-                    <div class="row">13:00 &nbsp; <b>-5&deg;</b></div>
-                    <div class="row">14:00 &nbsp; <b>-7&deg;</b></div>
-                    <div class="row">15:00 &nbsp; <b>-4&deg;</b></div>
-                    <div class="row">16:00 &nbsp; <b>-4&deg;</b></div>
+                <br/>
+                <div class="row">
+                    <div class="col-2">City</div>
+                    <div class="col-8">
+                        <select id="cities" class="form-control">
+                            <option value='-1'>SELECT</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
+
 </div>
 
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>
