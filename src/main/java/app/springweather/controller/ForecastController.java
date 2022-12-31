@@ -14,9 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -62,7 +60,7 @@ public class ForecastController {
         return json;
     }
 
-    @GetMapping("/forecast")
+    @GetMapping("/forecast1")
     public ResponseEntity<Forecast> forecast() throws IOException, URISyntaxException{
 
         /*return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);*/
@@ -70,9 +68,11 @@ public class ForecastController {
 
     }
 
-    @GetMapping("/22")
-    public String viewStorePage(Model model) throws IOException, URISyntaxException {
-        model.addAttribute("forecast", visualcrossing.days(cityService.allCities().get(0)));
-        return "index22";
+    @RequestMapping("/forecast/{city_id}")
+    public String getForecast(@PathVariable("city_id") Long cityId, Model model) throws IOException, URISyntaxException {
+        City city = cityService.findCityById(cityId);
+        Forecast forecast = visualcrossing.days(city);
+        model.addAttribute("data", forecast);
+        return "forecast.html";
     }
 }
