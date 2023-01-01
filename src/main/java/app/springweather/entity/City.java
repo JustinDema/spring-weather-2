@@ -21,13 +21,20 @@ public class City {
     @Column(name = "city_name", nullable = false, length = 100)
     private String name;
 
+    @Column()
+    private Boolean duplicate;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "state_id", nullable = false)
     @JsonIgnoreProperties("cities")
     private State state;
 
     public String cityAdress(){
-        return name.concat(",").concat(state.getName()).concat(",").concat(state.getCountry().getName());
+        if(duplicate) {
+            return name.concat(",").concat(state.getName()).concat(",").concat(state.getCountry().getName());
+        }else {
+            return name.concat(",").concat(state.getCountry().getName());
+        }
     }
 
     @Override
