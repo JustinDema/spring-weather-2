@@ -83,18 +83,29 @@ public class Visualcrossing {
         List<HourlyForecast> output = new ArrayList<>();
         for (int i = 0; i < hours.length(); i++) {
             JSONObject hourValue = hours.getJSONObject(i);
-
+            Double snowDepth;
+            Double snow;
             String dateTime = hourValue.getString("datetime");
             Double temp = hourValue.getDouble("temp");
             Double feelsLike = hourValue.getDouble("feelslike");
             Double humidity = hourValue.getDouble("humidity");
-            Double snow = hourValue.getDouble("snow");
-            Double snowDepth = hourValue.getDouble("snowdepth");
+            if(hourValue.isNull("snow")){
+                snow = 0.0;
+            }else {
+                snow = hourValue.getDouble("snow");
+            }
+            if(hourValue.isNull("snowdepth")){
+                snowDepth = 0.0;
+            }else {
+                snowDepth = hourValue.getDouble("snowdepth");
+            }
             Double windSpeed = hourValue.getDouble("windspeed");
             Double pressure = hourValue.getDouble("pressure");
             Double visibility = hourValue.getDouble("visibility");
             String conditions = hourValue.getString("conditions");
-            String icon = "static/img/" + hourValue.getString("icon")+".png";
+            String icon = "/img/" + hourValue.getString("icon")+".png";
+
+
 
             HourlyForecast hourlyForecast = new HourlyForecast(dateTime, temp, feelsLike, humidity, snow, snowDepth, windSpeed, pressure, visibility, conditions,  icon);
             output.add(hourlyForecast);
@@ -105,7 +116,8 @@ public class Visualcrossing {
     public Forecast days(City city) throws IOException, URISyntaxException {
         String rawResult = rawResult(city);
         List<DailyForecast> output = new ArrayList<>();
-
+        Double snowDepth;
+        Double snow;
         if (rawResult==null || rawResult.isEmpty()) {
             return null;
         }else {
@@ -121,8 +133,16 @@ public class Visualcrossing {
                 Double temp = dayValue.getDouble("temp");
                 Double feelsLike = dayValue.getDouble("feelslike");
                 Double humidity = dayValue.getDouble("humidity");
-                Double snow = dayValue.getDouble("snow");
-                Double snowDepth = dayValue.getDouble("snowdepth");
+                if(dayValue.isNull("snow")){
+                    snow = 0.0;
+                }else {
+                    snow = dayValue.getDouble("snow");
+                }
+                if(dayValue.isNull("snowdepth")){
+                    snowDepth = 0.0;
+                }else {
+                    snowDepth = dayValue.getDouble("snowdepth");
+                }
                 Double windSpeed = dayValue.getDouble("windspeed");
                 Double pressure = dayValue.getDouble("pressure");
                 Double visibility = dayValue.getDouble("visibility");
@@ -130,7 +150,7 @@ public class Visualcrossing {
                 String sunset = dayValue.getString("sunset");;
                 String conditions = dayValue.getString("conditions");
                 String description = dayValue.getString("description");
-                String icon = "static/img/" + dayValue.getString("icon")+".png";
+                String icon = "/img/" + dayValue.getString("icon")+".png";
                 List<HourlyForecast> hourly = hours(dayValue.getJSONArray("hours"));
 
                 DailyForecast dailyForecast = new DailyForecast(dateTime,  maxTemp, minTemp, temp, feelsLike, humidity, snow, snowDepth, windSpeed, pressure, visibility, sunrise,sunset,conditions,description, icon, hourly );
