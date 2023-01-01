@@ -6,8 +6,13 @@ $(document).ready(function() {
 
 function checkweather() {
 
-    var url ="/forecast/" + $("#cities option:selected").attr("value")
+    const num= document.getElementById("cities").value
 
-    //window.open(url)
-   this.location = url;
+    if (!(num > 0)) {
+        alert("Please select a city")
+    } else {
+        var url ="/forecast/" + $("#cities option:selected").attr("value")
+
+        this.location = url;
+    }
 }
